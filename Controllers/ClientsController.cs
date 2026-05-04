@@ -14,10 +14,10 @@ public class ClientsController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("filter-by-name")]
-    public async Task<IActionResult> GetByName(string name)
+    [HttpGet("search")]
+    public async Task<IActionResult> Search(string name)
     {
-        var result = await _service.GetFilteredClientsAsync(name);
+        var result = await _service.SearchByNameAsync(name);
         return Ok(result);
     }
 }

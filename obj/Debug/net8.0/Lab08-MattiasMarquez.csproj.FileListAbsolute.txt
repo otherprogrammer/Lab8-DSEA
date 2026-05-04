@@ -111,3 +111,4 @@ D:\Rider\RiderProjects\Lab08-MattiasMarquez\Lab08-MattiasMarquez\obj\Debug\net8.
 D:\Rider\RiderProjects\Lab08-MattiasMarquez\Lab08-MattiasMarquez\obj\Debug\net8.0\Lab08-MattiasMarquez.pdb
 D:\Rider\RiderProjects\Lab08-MattiasMarquez\Lab08-MattiasMarquez\obj\Debug\net8.0\Lab08-MattiasMarquez.genruntimeconfig.cache
 D:\Rider\RiderProjects\Lab08-MattiasMarquez\Lab08-MattiasMarquez\obj\Debug\net8.0\ref\Lab08-MattiasMarquez.dll
+D:\Rider\RiderProjects\Lab08-MattiasMarquez\Lab08-MattiasMarquez\obj\Debug\net8.0\Lab08-MattiasMarquez.sourcelink.json

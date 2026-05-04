@@ -12,7 +12,7 @@ public class ClientService : IClientService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<Client>> GetFilteredClientsAsync(string name)
+    public async Task<IEnumerable<Client>> SearchByNameAsync(string name)
     {
         return await _repository.GetClientsByNameAsync(name);
     }

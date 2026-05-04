@@ -16,4 +16,24 @@ public class ProductService : IProductService
     {
         return await _repository.GetProductsByPriceAsync(price);
     }
+
+    public async Task<Product?> GetMostExpensiveAsync()
+    {
+        return await _repository.GetMostExpensiveProductAsync();
+    }
+
+    public async Task<decimal> GetAveragePriceAsync()
+    {
+        return await _repository.GetAveragePriceAsync();
+    }
+
+    public async Task<IEnumerable<Product>> GetMissingDescriptionsAsync()
+    {
+        return await _repository.GetProductsWithoutDescriptionAsync();
+    }
+
+    public async Task<IEnumerable<string>> GetBuyersByProductIdAsync(int productId)
+    {
+        return await _repository.GetClientsByProductIdAsync(productId);
+    }
 }

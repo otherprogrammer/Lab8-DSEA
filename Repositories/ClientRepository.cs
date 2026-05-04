@@ -16,7 +16,7 @@ public class ClientRepository : IClientRepository
     public async Task<IEnumerable<Client>> GetClientsByNameAsync(string name)
     {
         return await _context.Clients
-            .Where(c => c.Name.Contains(name)) 
+            .Where(c => c.Name.Contains(name))
             .ToListAsync();
     }
 }

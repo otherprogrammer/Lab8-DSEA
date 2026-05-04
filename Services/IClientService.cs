@@ -4,5 +4,5 @@ namespace Lab08_MattiasMarquez.Services;
 
 public interface IClientService
 {
-    Task<IEnumerable<Client>> GetFilteredClientsAsync(string name);
+    Task<IEnumerable<Client>> SearchByNameAsync(string name);
 }
