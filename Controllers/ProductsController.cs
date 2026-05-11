@@ -14,39 +14,50 @@ public class ProductsController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("filter-by-price")]
-    public async Task<IActionResult> GetByPrice([FromQuery] decimal price)
+    [HttpGet]
+    public async Task<IActionResult> GetProducts([FromQuery] decimal? minPrice)
     {
-        var result = await _service.GetProductsHigherThanPriceAsync(price);
-        return Ok(result);
+        if (minPrice.HasValue)
+        {
+            var filtered = await _service.GetProductsHigherThanPriceAsync(minPrice.Value);
+            return Ok(filtered);
+        }
+        return BadRequest(new { error = "A minimum price filter is required" });
     }
 
-    [HttpGet("most-expensive")]
+    [HttpGet("expensive/top")]
     public async Task<IActionResult> GetMostExpensive()
     {
         var product = await _service.GetMostExpensiveAsync();
-        if (product == null) return NotFound("No hay productos.");
+        if (product == null)
+        {
+            return NotFound(new { message = "No products found" });
+        }
         return Ok(product);
     }
 
-    [HttpGet("average-price")]
+    [HttpGet("statistics/average-price")]
     public async Task<IActionResult> GetAveragePrice()
     {
         var average = await _service.GetAveragePriceAsync();
-        return Ok(new { AveragePrice = average });
+        return Ok(new { averagePrice = average });
     }
 
-    [HttpGet("no-description")]
-    public async Task<IActionResult> GetNoDescription()
+    [HttpGet("incomplete/no-description")]
+    public async Task<IActionResult> GetMissingDescriptions()
     {
         var result = await _service.GetMissingDescriptionsAsync();
         return Ok(result);
     }
 
-    [HttpGet("{productId}/clients")]
-    public async Task<IActionResult> GetClientsByProduct(int productId)
+    [HttpGet("{productId}/buyers")]
+    public async Task<IActionResult> GetBuyersByProduct(int productId)
     {
         var result = await _service.GetBuyersByProductIdAsync(productId);
+        if (!result.Any())
+        {
+            return NotFound(new { message = "No buyers found for this product" });
+        }
         return Ok(result);
     }
 }

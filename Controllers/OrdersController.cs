@@ -16,42 +16,46 @@ public class OrdersController : ControllerBase
         _orderDetailService = orderDetailService;
     }
 
-    [HttpGet("{orderId}/details")]
+    [HttpGet("{orderId}/items")]
     public async Task<IActionResult> GetDetails(int orderId)
     {
         var result = await _orderDetailService.GetOrderDetailsAsync(orderId);
         return Ok(result);
     }
 
-    [HttpGet("{orderId}/total-quantity")]
+    [HttpGet("{orderId}/quantity")]
     public async Task<IActionResult> GetTotalQuantity(int orderId)
     {
         var total = await _orderService.GetTotalQuantityAsync(orderId);
         return Ok(new { OrderId = orderId, TotalProducts = total });
     }
 
-    [HttpGet("after-date")]
-    public async Task<IActionResult> GetAfterDate([FromQuery] DateTime date)
+    [HttpGet]
+    public async Task<IActionResult> GetOrders([FromQuery] DateTime? since)
     {
-        var orders = await _orderService.GetOrdersRecentAsync(date);
-        return Ok(orders);
+        if (since.HasValue)
+        {
+            var orders = await _orderService.GetOrdersRecentAsync(since.Value);
+            return Ok(orders);
+        }
+        return BadRequest(new { error = "A valid date is required" });
     }
 
-    [HttpGet("top-client")]
+    [HttpGet("statistics/top-client")]
     public async Task<IActionResult> GetTopClient()
     {
         var result = await _orderService.GetTopClientAsync();
         return Ok(result);
     }
 
-    [HttpGet("client/{clientId}/products")]
+    [HttpGet("by-client/{clientId}/products")]
     public async Task<IActionResult> GetProductsByClient(int clientId)
     {
         var result = await _orderService.GetProductNamesByClientAsync(clientId);
         return Ok(result);
     }
 
-    [HttpGet("all-details")]
+    [HttpGet("items")]
     public async Task<IActionResult> GetAllDetails()
     {
         var result = await _orderDetailService.GetAllDetailsProjectedAsync();
