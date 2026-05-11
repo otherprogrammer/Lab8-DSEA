@@ -14,8 +14,8 @@ public class ClientsController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("search")]
-    public async Task<IActionResult> Search(string name)
+    [HttpGet] 
+    public async Task<IActionResult> Search([FromQuery] string name)
     {
         var result = await _service.SearchByNameAsync(name);
         return Ok(result);
